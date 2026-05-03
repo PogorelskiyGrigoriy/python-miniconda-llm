@@ -2,7 +2,7 @@ import sys
 
 from loguru import logger
 
-from config import LOG_DESTINATION, LOG_LEVEL, LOG_SERIALIZE
+from src.config import LOG_DESTINATION, LOG_LEVEL, LOG_SERIALIZE
 
 
 def setup_logging():
