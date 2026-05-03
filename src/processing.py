@@ -49,9 +49,6 @@ def filter_anomalies(df: pd.DataFrame) -> pd.DataFrame:
     # 2. Filter by Price
     df = df[(df["price"] >= 1000) & (df["price"] <= 150000)]
 
-    # 3. Drop rows where critical info is missing (Price or Year)
-    df = df.dropna(subset=["price", "year"])
-
     final_count = len(df)
     logger.info(
         f"Anomaly filtering complete. Removed {initial_count - final_count} rows."
@@ -86,3 +83,25 @@ def get_column_nan_percentage(
 
         report = nan_percentages.sort_values(ascending=False)
         return report
+
+
+def fill_type_and_clean(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Fills missing 'type' with 'other' and drops rows with ANY other missing values.
+    """
+    initial_count = len(df)
+
+    if "type" in df.columns:
+        df["type"] = df["type"].fillna("other")
+        logger.info("Filled missing 'type' values with 'other'")
+
+    df_cleaned = df.dropna()
+
+    final_count = len(df_cleaned)
+    logger.info(
+        f"Row-wise cleaning complete. "
+        f"Removed {initial_count - final_count} rows with missing data. "
+        f"Remaining: {final_count}"
+    )
+
+    return df_cleaned

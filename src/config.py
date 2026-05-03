@@ -42,6 +42,9 @@ CLEANED_V1_PATH = get_absolute_path(
     "CLEANED_V1_PATH", "data/processed/vehicles-cleaned-v1.csv"
 )
 
+# Path for the final cleaned and processed dataset
+FINAL_DATA_PATH = get_absolute_path("FINAL_DATA_PATH", "data/processed/vehicles-final.csv")
+
 # --- Logging Configuration ---
 # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
@@ -59,3 +62,6 @@ if LOG_DESTINATION:
 
 if CLEANED_V1_PATH:
     Path(CLEANED_V1_PATH).parent.mkdir(parents=True, exist_ok=True)
+    
+if FINAL_DATA_PATH:
+    Path(FINAL_DATA_PATH).parent.mkdir(parents=True, exist_ok=True)
