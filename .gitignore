@@ -1,0 +1,15 @@
+# conda environments
+.conda/
+
+# environments
+env/
+venv/
+.venv/
+.env
+
+# cache 
+**/__pycache__/
+*.pyc
+
+# logs
+logs/
