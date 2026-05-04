@@ -25,7 +25,6 @@ def get_predicted_price(year, manufacturer):
     # Perform prediction
     prediction = model.predict(input_data)[0]
 
-    # Safety check: ensure the price is not negative
     final_price = max(0, prediction)
 
     logger.info(
@@ -34,6 +33,5 @@ def get_predicted_price(year, manufacturer):
     return final_price
 
 
-# Test run when script is executed directly
 if __name__ == "__main__":
     get_predicted_price(2338, "ford")
