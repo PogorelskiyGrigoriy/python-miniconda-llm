@@ -30,3 +30,6 @@ logs/
 # --- OS Specific ---
 .DS_Store
 Thumbs.db
+
+# --- Models ---
+models/
