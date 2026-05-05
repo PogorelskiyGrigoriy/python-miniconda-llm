@@ -1,12 +1,8 @@
-import sys
 import os
 import shutil
 import tempfile
 import unittest
-
 from src.text_processor_tfidf import TextProcessorTfidf
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 
 class TestTextProcessorTfidf(unittest.TestCase):
     @classmethod
