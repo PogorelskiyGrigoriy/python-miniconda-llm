@@ -34,4 +34,4 @@ def get_predicted_price(year, manufacturer):
 
 
 if __name__ == "__main__":
-    get_predicted_price(2338, "ford")
+    get_predicted_price(2031, "ford")
