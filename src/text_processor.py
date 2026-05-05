@@ -1,9 +1,12 @@
 import os
 from abc import ABC, abstractmethod
+
 import joblib
 
 from src.logger_config import setup_logging
+
 logger = setup_logging()
+
 
 class TextProcessor(ABC):
     def __init__(self):
@@ -19,7 +22,7 @@ class TextProcessor(ABC):
         """
         if not os.path.isfile(path):
             raise FileNotFoundError(f"Model file not found: {path}")
-            
+
         instance = cls()
         instance.load_model(path)
         return instance
@@ -31,7 +34,7 @@ class TextProcessor(ABC):
         """
         if not text or not text.strip():
             raise ValueError("Training text cannot be empty")
-            
+
         instance = cls()
         instance.train_model(text)
         return instance
@@ -51,7 +54,9 @@ class TextProcessor(ABC):
     def save_model(self, path: str):
         if self.model is None:
             logger.warning("Attempted to save an uninitialized model.")
-            raise RuntimeError("Cannot save model: it has not been trained or loaded yet.")           
+            raise RuntimeError(
+                "Cannot save model: it has not been trained or loaded yet."
+            )
         try:
             # Ensure the target directory exists
             os.makedirs(os.path.dirname(path), exist_ok=True)

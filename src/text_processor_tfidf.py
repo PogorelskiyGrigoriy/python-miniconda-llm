@@ -1,23 +1,25 @@
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from src.text_processing.text_proccessor import TextProcessor
+
 from src.logger_config import setup_logging
+from src.text_processor import TextProcessor
 
 logger = setup_logging()
 
+
 class TextProcessorTfidf(TextProcessor):
     def train_model(self, text: str):
-        sentences = [s.strip() for s in text.split('.') if s.strip()]        
-        vectorizer = TfidfVectorizer(stop_words='english')
+        sentences = [s.strip() for s in text.split(".") if s.strip()]
+        vectorizer = TfidfVectorizer(stop_words="english")
         embeddings = vectorizer.fit_transform(sentences)
-        
+
         # 3. Packaging: store everything in a dictionary for easy persistence
         # This allows save_model() from the base class to save all components at once
         self.model = {
             "sentences": sentences,
             "vectorizer": vectorizer,
-            "embeddings": embeddings
+            "embeddings": embeddings,
         }
         logger.info(f"Model trained on {len(sentences)} sentences.")
 
@@ -39,7 +41,7 @@ class TextProcessorTfidf(TextProcessor):
 
         # 2. Calculate cosine similarity between query and all stored sentences
         similarities = cosine_similarity(query_vec, embeddings)
-        
+
         # 3. Find the index of the highest similarity score
         best_idx = np.argmax(similarities)
         best_score = similarities[0][best_idx]
@@ -49,6 +51,6 @@ class TextProcessorTfidf(TextProcessor):
             result_text = sentences[best_idx]
             logger.info(f"Best match found ({best_score:.4f}): {result_text}")
             return {"score": float(best_score), "text": result_text}
-        
+
         logger.warning("No relevant matches found for the query.")
         return None
