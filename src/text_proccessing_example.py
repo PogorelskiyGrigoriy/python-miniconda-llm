@@ -21,4 +21,11 @@ query = "What is machine learning?"
 embedding_query = vectorizer.transform([query])
 
 similarities = cosine_similarity(embedding_query, embeddings)
-logger.info(similarities)
+
+best_index = np.argmax(similarities)
+best_score = similarities[0][best_index]
+
+if best_score > 0:
+    logger.info(f"The best result ({best_score:.4f}): {cleaned_text_arr[best_index]}")
+else:
+    logger.warning("No relevant sentences found.")
